@@ -82,6 +82,36 @@ ul{padding-left:18px;color:#cbd5f5;line-height:1.6;}
 .demo div{margin-bottom:10px;}
 .client{color:#e5e7eb;}
 .ai{color:#a5b4fc;}
+
+/* WHY US */
+.why{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
+.why-box{
+  background:rgba(2,6,23,.92);
+  border:1px solid #1e293b;
+  border-radius:18px;
+  padding:25px;
+}
+.why-box h4{
+  color:#a5b4fc;
+  margin-bottom:10px;
+}
+
+/* CONTACT */
+.contact{
+  text-align:center;
+  padding:80px 20px 120px;
+}
+.contact a{
+  color:#a5b4fc;
+  font-size:1.2rem;
+  text-decoration:none;
+  font-weight:bold;
+}
+.contact a:hover{text-decoration:underline;}
 </style>
 
 <script>
@@ -111,12 +141,12 @@ Transparent, effizient und exakt auf Ihr Unternehmen abgestimmt.
 <h3>Starter</h3>
 <p class="price">99 € / Monat</p>
 <p class="desc">
-Der Starter-Agent übernimmt wiederkehrende Kundenanfragen zuverlässig
-und sorgt für sofortige Antworten – rund um die Uhr.
+Automatisierter Kundenservice für wiederkehrende Anfragen –
+zuverlässig, kontrolliert und rund um die Uhr verfügbar.
 </p>
 <ul>
 <li>FAQ & Support-Automatisierung</li>
-<li>Klare, kontrollierte Antworten</li>
+<li>Feste Antwortlogik</li>
 <li>Kein Verkauf, keine Beratung</li>
 </ul>
 
@@ -124,33 +154,10 @@ und sorgt für sofortige Antworten – rund um die Uhr.
 <div class="demo" id="starter">
 <div class="client"><b>Kunde:</b> Was macht Clever & Günstig?</div>
 <div class="ai"><b>AI:</b> Wir entwickeln AI-Agenten für Unternehmen.</div>
-
-<div class="client"><b>Kunde:</b> Welche Pakete gibt es?</div>
-<div class="ai"><b>AI:</b> Starter, Pro und Enterprise.</div>
-
-<div class="client"><b>Kunde:</b> Kannst du mich beraten?</div>
+<div class="client"><b>Kunde:</b> Kannst du beraten?</div>
 <div class="ai"><b>AI:</b> Beratung ist in diesem Paket nicht enthalten.</div>
-
 <div class="client"><b>Kunde:</b> Arbeitest du 24/7?</div>
-<div class="ai"><b>AI:</b> Ja, jederzeit.</div>
-
-<div class="client"><b>Kunde:</b> Kannst du verkaufen?</div>
-<div class="ai"><b>AI:</b> Nein.</div>
-
-<div class="client"><b>Kunde:</b> Gibt es Integrationen?</div>
-<div class="ai"><b>AI:</b> Nein.</div>
-
-<div class="client"><b>Kunde:</b> Für wen ist das Paket?</div>
-<div class="ai"><b>AI:</b> Für einfachen Kundenservice.</div>
-
-<div class="client"><b>Kunde:</b> Kann ich upgraden?</div>
-<div class="ai"><b>AI:</b> Ja, jederzeit.</div>
-
-<div class="client"><b>Kunde:</b> Ersetzt du Mitarbeiter?</div>
-<div class="ai"><b>AI:</b> Nein, ich entlaste sie.</div>
-
-<div class="client"><b>Kunde:</b> Gibt es Support?</div>
-<div class="ai"><b>AI:</b> Ja, für Standardfragen.</div>
+<div class="ai"><b>AI:</b> Ja.</div>
 </div>
 </div>
 
@@ -159,8 +166,8 @@ und sorgt für sofortige Antworten – rund um die Uhr.
 <h3>Pro</h3>
 <p class="price">199 € / Monat</p>
 <p class="desc">
-Der Pro-Agent agiert aktiv im Vertrieb: Er berät,
-stellt Rückfragen und empfiehlt passende Lösungen.
+Aktiver AI-Agent für Beratung und Vertrieb.
+Er stellt Rückfragen, empfiehlt Lösungen und qualifiziert Leads.
 </p>
 <ul>
 <li>Beratung & Empfehlungen</li>
@@ -172,33 +179,10 @@ stellt Rückfragen und empfiehlt passende Lösungen.
 <div class="demo" id="pro">
 <div class="client"><b>Kunde:</b> Welches Paket passt zu mir?</div>
 <div class="ai"><b>AI:</b> Basierend auf Ihren Zielen empfehle ich Pro.</div>
-
-<div class="client"><b>Kunde:</b> Kannst du beraten?</div>
-<div class="ai"><b>AI:</b> Ja, individuell.</div>
-
 <div class="client"><b>Kunde:</b> Qualifizierst du Leads?</div>
 <div class="ai"><b>AI:</b> Ja.</div>
-
 <div class="client"><b>Kunde:</b> Unterstützt du Verkauf?</div>
 <div class="ai"><b>AI:</b> Aktiv.</div>
-
-<div class="client"><b>Kunde:</b> Fragst du nach Budget?</div>
-<div class="ai"><b>AI:</b> Wenn sinnvoll.</div>
-
-<div class="client"><b>Kunde:</b> Erklärst du Unterschiede?</div>
-<div class="ai"><b>AI:</b> Verständlich.</div>
-
-<div class="client"><b>Kunde:</b> Arbeitest du personalisiert?</div>
-<div class="ai"><b>AI:</b> Teilweise.</div>
-
-<div class="client"><b>Kunde:</b> Kann ich upgraden?</div>
-<div class="ai"><b>AI:</b> Ja, auf Enterprise.</div>
-
-<div class="client"><b>Kunde:</b> Bist du skalierbar?</div>
-<div class="ai"><b>AI:</b> Ja.</div>
-
-<div class="client"><b>Kunde:</b> Für wen ist das Paket?</div>
-<div class="ai"><b>AI:</b> Für wachsende Unternehmen.</div>
 </div>
 </div>
 
@@ -207,8 +191,8 @@ stellt Rückfragen und empfiehlt passende Lösungen.
 <h3>Enterprise</h3>
 <p class="price">399 € / Monat</p>
 <p class="desc">
-Der Enterprise-Agent ist vollständig individuell entwickelt
-und tief in Ihre Systeme und Prozesse integriert.
+Individuell entwickelter AI-Agent mit tiefen Integrationen
+in Ihre Systeme, Prozesse und Datenquellen.
 </p>
 <ul>
 <li>CRM & API-Integration</li>
@@ -220,40 +204,49 @@ und tief in Ihre Systeme und Prozesse integriert.
 <div class="demo" id="enterprise">
 <div class="client"><b>Kunde:</b> Kannst du unser CRM nutzen?</div>
 <div class="ai"><b>AI:</b> Ja, vollständig integriert.</div>
-
-<div class="client"><b>Kunde:</b> Arbeitest du mit APIs?</div>
-<div class="ai"><b>AI:</b> Ja.</div>
-
 <div class="client"><b>Kunde:</b> Automatisierst du Prozesse?</div>
 <div class="ai"><b>AI:</b> End-to-End.</div>
-
-<div class="client"><b>Kunde:</b> Lernst du interne Abläufe?</div>
-<div class="ai"><b>AI:</b> Ja.</div>
-
-<div class="client"><b>Kunde:</b> Kannst du skalieren?</div>
-<div class="ai"><b>AI:</b> Ohne Limit.</div>
-
-<div class="client"><b>Kunde:</b> Mehrere Teams?</div>
-<div class="ai"><b>AI:</b> Ja.</div>
-
-<div class="client"><b>Kunde:</b> Reports?</div>
-<div class="ai"><b>AI:</b> Ja.</div>
-
-<div class="client"><b>Kunde:</b> Entscheidungen vorbereiten?</div>
-<div class="ai"><b>AI:</b> Datenbasiert.</div>
-
 <div class="client"><b>Kunde:</b> Ist das individuell?</div>
 <div class="ai"><b>AI:</b> Vollständig.</div>
-
-<div class="client"><b>Kunde:</b> Für wen?</div>
-<div class="ai"><b>AI:</b> Für komplexe Organisationen.</div>
 </div>
 </div>
 
 </div>
 </section>
 
+<!-- WHY US -->
+<section>
+<h2 style="text-align:center;color:#c7d2fe;margin-bottom:50px;">Warum Clever & Günstig?</h2>
+<div class="why">
+<div class="why-box">
+<h4>Praxis statt Theorie</h4>
+<p>Unsere AI-Agenten sind für reale Geschäftsprozesse gebaut – nicht für Demos ohne Mehrwert.</p>
+</div>
+<div class="why-box">
+<h4>Transparente Kosten</h4>
+<p>Keine versteckten Gebühren. Klare Pakete. Klare Erwartungen.</p>
+</div>
+<div class="why-box">
+<h4>Skalierbar & sicher</h4>
+<p>Von einfachem Support bis zu komplexen Enterprise-Integrationen.</p>
+</div>
+<div class="why-box">
+<h4>Unabhängig & flexibel</h4>
+<p>Der finale Agent läuft auf Ihrem eigenen Account – volle Kontrolle.</p>
+</div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact">
+<p>Interesse an einer individuellen Lösung?</p>
+<p>
+<a href="mailto:shop@straymind.de">shop@straymind.de</a>
+</p>
+</div>
+
 </body>
 </html>
+
 
 
