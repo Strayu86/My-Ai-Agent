@@ -2,21 +2,29 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Clever & Günstig – AI Agent Demo</title>
+<title>Clever & Günstig – AI-Agenten Demo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
   margin: 0;
   font-family: Inter, Arial, sans-serif;
-  background: #020617;
   color: #e5e7eb;
+  background: url("ai-bg.jpg") center / cover no-repeat fixed;
+}
+
+/* OVERLAY */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.88);
+  z-index: -1;
 }
 
 header {
-  padding: 120px 20px;
+  padding: 140px 20px;
   text-align: center;
-  background: radial-gradient(circle at top, #1e1b4b, #020617);
 }
 
 h1 {
@@ -25,7 +33,7 @@ h1 {
 }
 
 header p {
-  max-width: 800px;
+  max-width: 850px;
   margin: auto;
   font-size: 1.2rem;
   color: #cbd5f5;
@@ -33,7 +41,7 @@ header p {
 
 section {
   max-width: 1100px;
-  margin: 80px auto;
+  margin: 60px auto 100px;
   padding: 0 20px;
 }
 
@@ -44,7 +52,7 @@ section {
 }
 
 .box {
-  background: #020617;
+  background: rgba(2,6,23,0.9);
   border: 1px solid #1e293b;
   border-radius: 16px;
   padding: 30px;
@@ -53,7 +61,6 @@ section {
 
 .box h3 {
   color: #818cf8;
-  margin-bottom: 10px;
 }
 
 .price {
@@ -117,14 +124,13 @@ input {
 
 <header>
 <h1>AI-Agenten live erleben</h1>
-<p>Interaktive Demo – exakt so reagieren spätere AI-Agenten bei echten Kunden.</p>
+<p>Testen Sie jeden Tarif interaktiv – ohne Risiko, ohne Kosten.</p>
 </header>
 
 <section>
 
 <div class="pricing">
 
-<!-- BOX TEMPLATE -->
 <script>
 const LIMIT = 3;
 const state = { starter:0, pro:0, enterprise:0 };
@@ -133,30 +139,32 @@ function getAnswer(plan, q){
   q = q.toLowerCase();
 
   if(q.includes("preis") || q.includes("kosten"))
-    return "Die Kosten richten sich nach dem gewählten Paket und dem Umfang der Automatisierung.";
+    return "Die genauen Kosten hängen vom Automatisierungsumfang ab.";
 
   if(q.includes("crm") || q.includes("integration"))
     return plan==="enterprise"
-      ? "Ja, wir integrieren CRM-, ERP- und API-Systeme vollständig."
+      ? "Ja, wir integrieren CRM-, ERP- und API-Systeme."
       : "Integrationen sind ab dem Enterprise-Paket verfügbar.";
 
   if(q.includes("verkauf") || q.includes("leads"))
     return plan==="starter"
       ? "Der Starter-Agent ist nicht für Verkauf gedacht."
-      : "Dieser Agent kann Leads qualifizieren und Gespräche vorbereiten.";
+      : "Dieser Agent qualifiziert Leads und unterstützt den Vertrieb.";
 
   return plan==="starter"
-    ? "Der Starter-Agent beantwortet häufige Kundenfragen automatisch."
+    ? "Der Starter-Agent beantwortet häufige Support-Fragen automatisch."
     : plan==="pro"
     ? "Der Pro-Agent berät Kunden und empfiehlt passende Lösungen."
-    : "Enterprise-Agenten werden individuell auf Ihr Unternehmen trainiert.";
+    : "Enterprise-Agenten werden individuell für Ihr Unternehmen trainiert.";
 }
 
 function ask(plan, input){
   const box = document.getElementById(plan+"-msg");
+
   if(state[plan] >= LIMIT){
-    box.innerHTML += `<div style="color:#fca5a5"><b>Demo beendet.</b><br>Jetzt individuelles Angebot anfordern.</div>
-    <div class="cta">👉 Angebot anfordern</div>`;
+    box.innerHTML += `
+      <div style="color:#fca5a5"><b>Demo beendet.</b></div>
+      <div class="cta">👉 Jetzt Angebot anfordern</div>`;
     return;
   }
 
@@ -186,7 +194,6 @@ function ask(plan, input){
 <li>Automatische Antworten</li>
 <li>Kein Verkauf</li>
 </ul>
-
 <div class="demo-chat">
 <div class="messages" id="starter-msg"></div>
 <input placeholder="Frage stellen…" onkeydown="if(event.key==='Enter') ask('starter',this)">
@@ -200,9 +207,8 @@ function ask(plan, input){
 <ul>
 <li>Beratung & Empfehlungen</li>
 <li>Lead-Qualifizierung</li>
-<li>Verkaufslogik</li>
+<li>Verkauf</li>
 </ul>
-
 <div class="demo-chat">
 <div class="messages" id="pro-msg"></div>
 <input placeholder="Frage stellen…" onkeydown="if(event.key==='Enter') ask('pro',this)">
@@ -218,7 +224,6 @@ function ask(plan, input){
 <li>Individuelle Workflows</li>
 <li>Strategische Automatisierung</li>
 </ul>
-
 <div class="demo-chat">
 <div class="messages" id="enterprise-msg"></div>
 <input placeholder="Frage stellen…" onkeydown="if(event.key==='Enter') ask('enterprise',this)">
