@@ -1,144 +1,257 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Clever & Günstig – AI-Agenten</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Clever & Günstig – AI-Agenten Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Testen Sie AI-Agenten live. Starter, Pro und Enterprise – sehen Sie sofort die Unterschiede.">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #020617;
-      color: #e5e7eb;
-    }
+<style>
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #020617;
+  color: #e5e7eb;
+}
 
-    header {
-      background:
-      linear-gradient(rgba(6,23,85,0.85), rgba(6,23,85,0.85)),
-      url("ai-bg.jpg") center / cover no-repeat;
-      padding: 140px 20px;
-      text-align: center;
-    }
+header {
+  background: url("ai-bg.jpg") center / cover no-repeat;
+  padding: 140px 20px;
+  text-align: center;
+}
 
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      color: #c7d2fe;
-    }
+h1 {
+  font-size: 3rem;
+  color: #c7d2fe;
+}
 
-    header p {
-      font-size: 1.2rem;
-      max-width: 750px;
-      margin: auto;
-      color: #cbd5f5;
-    }
+header p {
+  max-width: 800px;
+  margin: auto;
+  font-size: 1.2rem;
+  color: #cbd5f5;
+}
 
-    section {
-      max-width: 1100px;
-      margin: 90px auto;
-      padding: 0 20px;
-    }
+section {
+  max-width: 1100px;
+  margin: 80px auto;
+  padding: 0 20px;
+}
 
-    h2 {
-      text-align: center;
-      color: #a5b4fc;
-      font-size: 2.2rem;
-      margin-bottom: 50px;
-    }
+h2 {
+  text-align: center;
+  color: #a5b4fc;
+  font-size: 2.2rem;
+  margin-bottom: 50px;
+}
 
-    .pricing {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-    }
+.pricing {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 30px;
+}
 
-    .box {
-      background: rgba(2,6,23,0.9);
-      border: 1px solid #1e293b;
-      border-radius: 14px;
-      padding: 35px;
-      box-shadow: 0 0 30px rgba(99,102,241,0.2);
-    }
+.box {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: 0 0 30px rgba(99,102,241,0.15);
+}
 
-    .box h3 {
-      margin-top: 0;
-      color: #818cf8;
-    }
+.box h3 {
+  color: #818cf8;
+  margin-top: 0;
+}
 
-    .price {
-      font-size: 2.3rem;
-      color: #a5b4fc;
-      margin: 20px 0;
-    }
+.price {
+  font-size: 2.2rem;
+  color: #a5b4fc;
+}
 
-    .button {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 15px 30px;
-      background: linear-gradient(135deg, #6366f1, #4338ca);
-      color: white;
-      text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
+ul {
+  padding-left: 20px;
+  line-height: 1.6;
+  color: #cbd5f5;
+}
 
-    .button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(99,102,241,0.4);
-    }
+.demo-title {
+  margin-top: 25px;
+  font-weight: bold;
+  color: #c7d2fe;
+}
 
-    footer {
-      text-align: center;
-      padding: 50px 20px;
-      border-top: 1px solid #1e293b;
-      color: #94a3b8;
-    }
-  </style>
+.demo-chat {
+  margin-top: 10px;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.demo-messages {
+  max-height: 180px;
+  overflow-y: auto;
+  padding: 10px;
+  font-size: 0.9rem;
+}
+
+.demo-chat input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #020617;
+  color: #e5e7eb;
+}
+
+.notice {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-top: 10px;
+}
+
+footer {
+  text-align: center;
+  padding: 40px;
+  border-top: 1px solid #1e293b;
+  color: #94a3b8;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>AI-Agenten für Kundenservice & Vertrieb</h1>
-  <p>Automatisierte Kundenkommunikation und Verkaufsunterstützung – 24/7 für Ihr Unternehmen.</p>
+<h1>Testen Sie unsere AI-Agenten live</h1>
+<p>Jeder Tarif hat einen eigenen AI-Agenten.  
+Testen Sie die Unterschiede – genau so verhält sich Ihr späterer Agent.</p>
 </header>
 
 <section>
-  <h2>Pakete & Preise</h2>
+<h2>Pakete & Live-Demos</h2>
 
-  <div class="pricing">
+<div class="pricing">
 
-    <div class="box">
-      <h3>Starter</h3>
-      <p class="price">99 € / Monat</p>
-      <p>Basis AI-Agent für häufige Kundenanfragen.</p>
-      <a class="button" href="mailto:shop@straymind.de?subject=Kaufen%20Starter%20AI-Agent">Kaufen</a>
-    </div>
+<!-- STARTER -->
+<div class="box">
+<h3>Starter</h3>
+<p class="price">99 € / Monat</p>
+<ul>
+<li>Beantwortet häufige Kundenfragen (FAQ)</li>
+<li>Keine Beratung oder Verkaufslogik</li>
+<li>Ideal für einfache Kundenkommunikation</li>
+<li>Bis zu 500 Interaktionen / Monat</li>
+</ul>
 
-    <div class="box">
-      <h3>Pro</h3>
-      <p class="price">199 € / Monat</p>
-      <p>Verkaufsorientierter AI-Agent inkl. Produktberatung.</p>
-      <a class="button" href="mailto:shop@straymind.de?subject=Kaufen%20Pro%20AI-Agent">Kaufen</a>
-    </div>
+<div class="demo-title">🔹 Starter-Agent testen</div>
+<div class="demo-chat">
+<div class="demo-messages" id="starter-chat"></div>
+<input placeholder="z.B. Was kostet euer Service?" onkeydown="if(event.key==='Enter') starterAsk(this)">
+</div>
 
-    <div class="box">
-      <h3>Enterprise</h3>
-      <p class="price">399 € / Monat</p>
-      <p>Individuelle Workflows, API-Anbindung & Optimierung.</p>
-      <a class="button" href="mailto:shop@straymind.de?subject=Kaufen%20Enterprise%20AI-Agent">Kaufen</a>
-    </div>
+<p class="notice">
+Demo-Version. Der finale Agent wird auf dem OpenAI-Konto des Kunden betrieben.
+</p>
+</div>
 
-  </div>
+<!-- PRO -->
+<div class="box">
+<h3>Pro</h3>
+<p class="price">199 € / Monat</p>
+<ul>
+<li>Produktberatung & Empfehlungen</li>
+<li>Verkaufsorientierte Antworten</li>
+<li>Lead-Vorbereitung</li>
+<li>Bis zu 2000 Interaktionen / Monat</li>
+</ul>
+
+<div class="demo-title">🔹 Pro-Agent testen</div>
+<div class="demo-chat">
+<div class="demo-messages" id="pro-chat"></div>
+<input placeholder="z.B. Welches Paket passt zu mir?" onkeydown="if(event.key==='Enter') proAsk(this)">
+</div>
+
+<p class="notice">
+Demo-Version. Nutzungskosten entstehen auf dem OpenAI-Konto des Kunden.
+</p>
+</div>
+
+<!-- ENTERPRISE -->
+<div class="box">
+<h3>Enterprise</h3>
+<p class="price">399 € / Monat</p>
+<ul>
+<li>Individuelle Workflows</li>
+<li>API- & System-Integrationen</li>
+<li>Strategische Beratung</li>
+<li>Unbegrenzte Interaktionen</li>
+</ul>
+
+<div class="demo-title">🔹 Enterprise-Agent testen</div>
+<div class="demo-chat">
+<div class="demo-messages" id="enterprise-chat"></div>
+<input placeholder="z.B. Können Sie unser CRM integrieren?" onkeydown="if(event.key==='Enter') enterpriseAsk(this)">
+</div>
+
+<p class="notice">
+Enterprise-Agenten werden individuell aufgesetzt und skaliert.
+</p>
+</div>
+
+</div>
 </section>
 
 <footer>
-  <p>© Clever & Günstig – AI-Agenten für Unternehmen</p>
-  <p>Kontakt: shop@straymind.de</p>
+© Clever & Günstig – AI-Agenten für Unternehmen<br>
+shop@straymind.de
 </footer>
+
+<script>
+const API_KEY = "HIER_DEIN_OPENAI_API_KEY";
+
+async function ask(chatId, prompt, input) {
+  const box = document.getElementById(chatId);
+  const question = input.value;
+  input.value = "";
+  box.innerHTML += `<div><b>Du:</b> ${question}</div>`;
+
+  const res = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model: "gpt-4",
+      messages: [{ role: "user", content: prompt + question }],
+      max_tokens: 200
+    })
+  });
+
+  const data = await res.json();
+  box.innerHTML += `<div><b>AI:</b> ${data.choices[0].message.content}</div>`;
+  box.scrollTop = box.scrollHeight;
+}
+
+function starterAsk(i) {
+  ask("starter-chat",
+  "Du bist ein STARTER AI-Agent. Du beantwortest nur einfache FAQs. Keine Beratung. Frage: ",
+  i);
+}
+
+function proAsk(i) {
+  ask("pro-chat",
+  "Du bist ein PRO AI-Agent. Du berätst, empfiehlst und erklärst Vorteile. Frage: ",
+  i);
+}
+
+function enterpriseAsk(i) {
+  ask("enterprise-chat",
+  "Du bist ein ENTERPRISE AI-Agent. Du erklärst komplexe Prozesse, Integrationen und Strategien. Frage: ",
+  i);
+}
+</script>
 
 </body>
 </html>
+
 
