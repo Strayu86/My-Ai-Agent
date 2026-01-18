@@ -20,14 +20,19 @@ body::before{
   z-index:-1;
 }
 header{
-  padding:140px 20px;
+  padding:160px 20px 120px;
   text-align:center;
 }
-h1{font-size:3rem;color:#c7d2fe;}
+h1{
+  font-size:3.2rem;
+  color:#c7d2fe;
+  margin-bottom:20px;
+}
 header p{
   max-width:900px;
   margin:auto;
   font-size:1.2rem;
+  line-height:1.6;
   color:#cbd5f5;
 }
 section{
@@ -90,8 +95,12 @@ function toggle(id){
 <body>
 
 <header>
-<h1>AI-Agenten realistisch vergleichen</h1>
-<p>Keine Spielerei. Echte Antworten, echte Unterschiede – genau so reagieren unsere Agenten im Alltag.</p>
+<h1>AI-Agenten für Kundenservice & Vertrieb</h1>
+<p>
+Wir entwickeln spezialisierte AI-Agenten, die Kundenanfragen automatisieren,
+Vertrieb unterstützen und interne Prozesse skalierbar entlasten.
+Transparent, effizient und exakt auf Ihr Unternehmen abgestimmt.
+</p>
 </header>
 
 <section>
@@ -102,13 +111,13 @@ function toggle(id){
 <h3>Starter</h3>
 <p class="price">99 € / Monat</p>
 <p class="desc">
-Der Starter-Agent ist für einfachen, klaren Kundenservice gedacht.
-Er beantwortet wiederkehrende Fragen zuverlässig – ohne Verkauf oder Beratung.
+Der Starter-Agent übernimmt wiederkehrende Kundenanfragen zuverlässig
+und sorgt für sofortige Antworten – rund um die Uhr.
 </p>
 <ul>
 <li>FAQ & Support-Automatisierung</li>
-<li>Feste, kontrollierte Antworten</li>
-<li>Ideal für kleine Teams</li>
+<li>Klare, kontrollierte Antworten</li>
+<li>Kein Verkauf, keine Beratung</li>
 </ul>
 
 <div class="button" onclick="toggle('starter')">Demo testen</div>
@@ -122,26 +131,26 @@ Er beantwortet wiederkehrende Fragen zuverlässig – ohne Verkauf oder Beratung
 <div class="client"><b>Kunde:</b> Kannst du mich beraten?</div>
 <div class="ai"><b>AI:</b> Beratung ist in diesem Paket nicht enthalten.</div>
 
-<div class="client"><b>Kunde:</b> Arbeitest du rund um die Uhr?</div>
-<div class="ai"><b>AI:</b> Ja, der Agent ist 24/7 verfügbar.</div>
+<div class="client"><b>Kunde:</b> Arbeitest du 24/7?</div>
+<div class="ai"><b>AI:</b> Ja, jederzeit.</div>
 
 <div class="client"><b>Kunde:</b> Kannst du verkaufen?</div>
-<div class="ai"><b>AI:</b> Verkauf ist nicht Teil dieses Pakets.</div>
-
-<div class="client"><b>Kunde:</b> Gibt es Support?</div>
-<div class="ai"><b>AI:</b> Ja, für häufige Fragen.</div>
+<div class="ai"><b>AI:</b> Nein.</div>
 
 <div class="client"><b>Kunde:</b> Gibt es Integrationen?</div>
-<div class="ai"><b>AI:</b> Integrationen sind nicht enthalten.</div>
+<div class="ai"><b>AI:</b> Nein.</div>
 
 <div class="client"><b>Kunde:</b> Für wen ist das Paket?</div>
 <div class="ai"><b>AI:</b> Für einfachen Kundenservice.</div>
 
-<div class="client"><b>Kunde:</b> Kannst du Leads erfassen?</div>
-<div class="ai"><b>AI:</b> Nein.</div>
-
 <div class="client"><b>Kunde:</b> Kann ich upgraden?</div>
 <div class="ai"><b>AI:</b> Ja, jederzeit.</div>
+
+<div class="client"><b>Kunde:</b> Ersetzt du Mitarbeiter?</div>
+<div class="ai"><b>AI:</b> Nein, ich entlaste sie.</div>
+
+<div class="client"><b>Kunde:</b> Gibt es Support?</div>
+<div class="ai"><b>AI:</b> Ja, für Standardfragen.</div>
 </div>
 </div>
 
@@ -150,45 +159,45 @@ Er beantwortet wiederkehrende Fragen zuverlässig – ohne Verkauf oder Beratung
 <h3>Pro</h3>
 <p class="price">199 € / Monat</p>
 <p class="desc">
-Der Pro-Agent agiert aktiv: er berät Kunden, empfiehlt Lösungen
-und unterstützt den Vertrieb bei der Lead-Qualifizierung.
+Der Pro-Agent agiert aktiv im Vertrieb: Er berät,
+stellt Rückfragen und empfiehlt passende Lösungen.
 </p>
 <ul>
-<li>Beratung & Produktempfehlungen</li>
-<li>Verkaufslogik</li>
+<li>Beratung & Empfehlungen</li>
 <li>Lead-Qualifizierung</li>
+<li>Verkaufsunterstützung</li>
 </ul>
 
 <div class="button" onclick="toggle('pro')">Demo testen</div>
 <div class="demo" id="pro">
 <div class="client"><b>Kunde:</b> Welches Paket passt zu mir?</div>
-<div class="ai"><b>AI:</b> Wenn Sie Beratung wünschen, empfehle ich das Pro-Paket.</div>
+<div class="ai"><b>AI:</b> Basierend auf Ihren Zielen empfehle ich Pro.</div>
 
-<div class="client"><b>Kunde:</b> Kannst du mir etwas empfehlen?</div>
-<div class="ai"><b>AI:</b> Ja, basierend auf Ihren Anforderungen.</div>
-
-<div class="client"><b>Kunde:</b> Unterstützt du den Verkauf?</div>
-<div class="ai"><b>AI:</b> Ja, aktiv.</div>
+<div class="client"><b>Kunde:</b> Kannst du beraten?</div>
+<div class="ai"><b>AI:</b> Ja, individuell.</div>
 
 <div class="client"><b>Kunde:</b> Qualifizierst du Leads?</div>
-<div class="ai"><b>AI:</b> Ja, nach definierten Kriterien.</div>
+<div class="ai"><b>AI:</b> Ja.</div>
+
+<div class="client"><b>Kunde:</b> Unterstützt du Verkauf?</div>
+<div class="ai"><b>AI:</b> Aktiv.</div>
 
 <div class="client"><b>Kunde:</b> Fragst du nach Budget?</div>
-<div class="ai"><b>AI:</b> Ja, falls sinnvoll.</div>
+<div class="ai"><b>AI:</b> Wenn sinnvoll.</div>
 
 <div class="client"><b>Kunde:</b> Erklärst du Unterschiede?</div>
-<div class="ai"><b>AI:</b> Ja, verständlich und strukturiert.</div>
+<div class="ai"><b>AI:</b> Verständlich.</div>
 
-<div class="client"><b>Kunde:</b> Kannst du überzeugen?</div>
-<div class="ai"><b>AI:</b> Ja, ohne aufdringlich zu sein.</div>
-
-<div class="client"><b>Kunde:</b> Gibt es Upgrades?</div>
-<div class="ai"><b>AI:</b> Ja, zum Enterprise-Agenten.</div>
-
-<div class="client"><b>Kunde:</b> Bist du personalisiert?</div>
+<div class="client"><b>Kunde:</b> Arbeitest du personalisiert?</div>
 <div class="ai"><b>AI:</b> Teilweise.</div>
 
-<div class="client"><b>Kunde:</b> Für wen ist das?</div>
+<div class="client"><b>Kunde:</b> Kann ich upgraden?</div>
+<div class="ai"><b>AI:</b> Ja, auf Enterprise.</div>
+
+<div class="client"><b>Kunde:</b> Bist du skalierbar?</div>
+<div class="ai"><b>AI:</b> Ja.</div>
+
+<div class="client"><b>Kunde:</b> Für wen ist das Paket?</div>
 <div class="ai"><b>AI:</b> Für wachsende Unternehmen.</div>
 </div>
 </div>
@@ -198,11 +207,11 @@ und unterstützt den Vertrieb bei der Lead-Qualifizierung.
 <h3>Enterprise</h3>
 <p class="price">399 € / Monat</p>
 <p class="desc">
-Der Enterprise-Agent ist vollständig individuell.
-Er kennt Prozesse, Systeme, Datenquellen und arbeitet tief integriert.
+Der Enterprise-Agent ist vollständig individuell entwickelt
+und tief in Ihre Systeme und Prozesse integriert.
 </p>
 <ul>
-<li>CRM / API Integration</li>
+<li>CRM & API-Integration</li>
 <li>Individuelle Workflows</li>
 <li>Skalierbare Automatisierung</li>
 </ul>
@@ -210,13 +219,13 @@ Er kennt Prozesse, Systeme, Datenquellen und arbeitet tief integriert.
 <div class="button" onclick="toggle('enterprise')">Demo testen</div>
 <div class="demo" id="enterprise">
 <div class="client"><b>Kunde:</b> Kannst du unser CRM nutzen?</div>
-<div class="ai"><b>AI:</b> Ja, inklusive Datenabgleich.</div>
+<div class="ai"><b>AI:</b> Ja, vollständig integriert.</div>
 
 <div class="client"><b>Kunde:</b> Arbeitest du mit APIs?</div>
-<div class="ai"><b>AI:</b> Ja, bidirektional.</div>
+<div class="ai"><b>AI:</b> Ja.</div>
 
-<div class="client"><b>Kunde:</b> Kannst du Prozesse automatisieren?</div>
-<div class="ai"><b>AI:</b> Vollständig.</div>
+<div class="client"><b>Kunde:</b> Automatisierst du Prozesse?</div>
+<div class="ai"><b>AI:</b> End-to-End.</div>
 
 <div class="client"><b>Kunde:</b> Lernst du interne Abläufe?</div>
 <div class="ai"><b>AI:</b> Ja.</div>
@@ -224,20 +233,20 @@ Er kennt Prozesse, Systeme, Datenquellen und arbeitet tief integriert.
 <div class="client"><b>Kunde:</b> Kannst du skalieren?</div>
 <div class="ai"><b>AI:</b> Ohne Limit.</div>
 
-<div class="client"><b>Kunde:</b> Kannst du mehrere Teams bedienen?</div>
+<div class="client"><b>Kunde:</b> Mehrere Teams?</div>
 <div class="ai"><b>AI:</b> Ja.</div>
 
-<div class="client"><b>Kunde:</b> Unterstützt du Management?</div>
-<div class="ai"><b>AI:</b> Ja, mit Reports.</div>
+<div class="client"><b>Kunde:</b> Reports?</div>
+<div class="ai"><b>AI:</b> Ja.</div>
 
-<div class="client"><b>Kunde:</b> Kannst du Entscheidungen vorbereiten?</div>
-<div class="ai"><b>AI:</b> Ja, datenbasiert.</div>
+<div class="client"><b>Kunde:</b> Entscheidungen vorbereiten?</div>
+<div class="ai"><b>AI:</b> Datenbasiert.</div>
 
-<div class="client"><b>Kunde:</b> Bist du einzigartig?</div>
-<div class="ai"><b>AI:</b> Ja, individuell entwickelt.</div>
+<div class="client"><b>Kunde:</b> Ist das individuell?</div>
+<div class="ai"><b>AI:</b> Vollständig.</div>
 
-<div class="client"><b>Kunde:</b> Für wen ist das Paket?</div>
-<div class="ai"><b>AI:</b> Für Unternehmen mit komplexen Prozessen.</div>
+<div class="client"><b>Kunde:</b> Für wen?</div>
+<div class="ai"><b>AI:</b> Für komplexe Organisationen.</div>
 </div>
 </div>
 
@@ -246,4 +255,5 @@ Er kennt Prozesse, Systeme, Datenquellen und arbeitet tief integriert.
 
 </body>
 </html>
+
 
