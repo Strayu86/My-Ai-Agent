@@ -2,21 +2,21 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Clever & Günstig – AI-Agenten Live Demo</title>
+<title>Clever & Günstig – AI Agent Demo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Inter, Arial, sans-serif;
   background: #020617;
   color: #e5e7eb;
 }
 
 header {
-  background: url("ai-bg.jpg") center / cover no-repeat;
-  padding: 140px 20px;
+  padding: 120px 20px;
   text-align: center;
+  background: radial-gradient(circle at top, #1e1b4b, #020617);
 }
 
 h1 {
@@ -25,7 +25,7 @@ h1 {
 }
 
 header p {
-  max-width: 850px;
+  max-width: 800px;
   margin: auto;
   font-size: 1.2rem;
   color: #cbd5f5;
@@ -37,13 +37,6 @@ section {
   padding: 0 20px;
 }
 
-h2 {
-  text-align: center;
-  color: #a5b4fc;
-  font-size: 2.2rem;
-  margin-bottom: 50px;
-}
-
 .pricing {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
@@ -53,13 +46,14 @@ h2 {
 .box {
   background: #020617;
   border: 1px solid #1e293b;
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 30px;
-  box-shadow: 0 0 30px rgba(99,102,241,0.15);
+  box-shadow: 0 0 40px rgba(99,102,241,.15);
 }
 
 .box h3 {
   color: #818cf8;
+  margin-bottom: 10px;
 }
 
 .price {
@@ -68,57 +62,53 @@ h2 {
 }
 
 ul {
-  padding-left: 20px;
-  line-height: 1.6;
+  padding-left: 18px;
   color: #cbd5f5;
 }
 
-.demo-title {
-  margin-top: 25px;
-  font-weight: bold;
-  color: #c7d2fe;
-}
-
 .demo-chat {
-  margin-top: 10px;
+  margin-top: 20px;
   border: 1px solid #1e293b;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
-.demo-messages {
-  max-height: 180px;
+.messages {
+  height: 200px;
   overflow-y: auto;
-  padding: 10px;
-  font-size: 0.9rem;
+  padding: 12px;
   background: #0a0f1f;
+  font-size: 0.9rem;
 }
 
-.demo-chat input {
+.messages div {
+  margin-bottom: 8px;
+}
+
+input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   border: none;
   background: #020617;
   color: #e5e7eb;
 }
 
-.limit {
-  color: #fca5a5;
-  font-size: 0.85rem;
-  margin-top: 8px;
-}
-
-.notice {
-  font-size: 0.75rem;
+.typing {
   color: #94a3b8;
-  margin-top: 10px;
+  font-style: italic;
 }
 
-footer {
+.cta {
+  margin-top: 15px;
+  background: #4f46e5;
+  padding: 12px;
   text-align: center;
-  padding: 40px;
-  border-top: 1px solid #1e293b;
-  color: #94a3b8;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.cta:hover {
+  background: #6366f1;
 }
 </style>
 </head>
@@ -126,32 +116,81 @@ footer {
 <body>
 
 <header>
-<h1>AI-Agenten live testen</h1>
-<p>Interaktive Demo – keine echten AI-Kosten, volle Transparenz für Kunden.</p>
+<h1>AI-Agenten live erleben</h1>
+<p>Interaktive Demo – exakt so reagieren spätere AI-Agenten bei echten Kunden.</p>
 </header>
 
 <section>
-<h2>Pakete & Demo-Agenten</h2>
 
 <div class="pricing">
+
+<!-- BOX TEMPLATE -->
+<script>
+const LIMIT = 3;
+const state = { starter:0, pro:0, enterprise:0 };
+
+function getAnswer(plan, q){
+  q = q.toLowerCase();
+
+  if(q.includes("preis") || q.includes("kosten"))
+    return "Die Kosten richten sich nach dem gewählten Paket und dem Umfang der Automatisierung.";
+
+  if(q.includes("crm") || q.includes("integration"))
+    return plan==="enterprise"
+      ? "Ja, wir integrieren CRM-, ERP- und API-Systeme vollständig."
+      : "Integrationen sind ab dem Enterprise-Paket verfügbar.";
+
+  if(q.includes("verkauf") || q.includes("leads"))
+    return plan==="starter"
+      ? "Der Starter-Agent ist nicht für Verkauf gedacht."
+      : "Dieser Agent kann Leads qualifizieren und Gespräche vorbereiten.";
+
+  return plan==="starter"
+    ? "Der Starter-Agent beantwortet häufige Kundenfragen automatisch."
+    : plan==="pro"
+    ? "Der Pro-Agent berät Kunden und empfiehlt passende Lösungen."
+    : "Enterprise-Agenten werden individuell auf Ihr Unternehmen trainiert.";
+}
+
+function ask(plan, input){
+  const box = document.getElementById(plan+"-msg");
+  if(state[plan] >= LIMIT){
+    box.innerHTML += `<div style="color:#fca5a5"><b>Demo beendet.</b><br>Jetzt individuelles Angebot anfordern.</div>
+    <div class="cta">👉 Angebot anfordern</div>`;
+    return;
+  }
+
+  const q = input.value.trim();
+  if(!q) return;
+  input.value = "";
+  state[plan]++;
+
+  box.innerHTML += `<div><b>Du:</b> ${q}</div>`;
+  box.innerHTML += `<div class="typing">AI schreibt…</div>`;
+  box.scrollTop = box.scrollHeight;
+
+  setTimeout(()=>{
+    box.querySelector(".typing").remove();
+    box.innerHTML += `<div><b>AI:</b> ${getAnswer(plan,q)}</div>`;
+    box.scrollTop = box.scrollHeight;
+  }, 700);
+}
+</script>
 
 <!-- STARTER -->
 <div class="box">
 <h3>Starter</h3>
 <p class="price">99 € / Monat</p>
 <ul>
-<li>Beantwortet häufige Kundenfragen (FAQ)</li>
-<li>Kein Verkauf, keine Analyse</li>
-<li>Ideal für Support & Entlastung</li>
+<li>FAQ & Support</li>
+<li>Automatische Antworten</li>
+<li>Kein Verkauf</li>
 </ul>
 
-<div class="demo-title">Starter-Agent (Demo)</div>
 <div class="demo-chat">
-<div class="demo-messages" id="starter-chat"></div>
-<input placeholder="z.B. Was macht dieses Paket?" onkeydown="if(event.key==='Enter') demoAsk(this,'starter')">
+<div class="messages" id="starter-msg"></div>
+<input placeholder="Frage stellen…" onkeydown="if(event.key==='Enter') ask('starter',this)">
 </div>
-<p class="limit">Max. 3 Fragen im Demo</p>
-<p class="notice">Demo ohne echte AI – Produktionsagent läuft auf Kundensystem.</p>
 </div>
 
 <!-- PRO -->
@@ -159,18 +198,15 @@ footer {
 <h3>Pro</h3>
 <p class="price">199 € / Monat</p>
 <ul>
-<li>Beratung & Produktempfehlungen</li>
-<li>Verkaufslogik & Leads</li>
-<li>Mehrstufige Antworten</li>
+<li>Beratung & Empfehlungen</li>
+<li>Lead-Qualifizierung</li>
+<li>Verkaufslogik</li>
 </ul>
 
-<div class="demo-title">Pro-Agent (Demo)</div>
 <div class="demo-chat">
-<div class="demo-messages" id="pro-chat"></div>
-<input placeholder="z.B. Welches Paket passt?" onkeydown="if(event.key==='Enter') demoAsk(this,'pro')">
+<div class="messages" id="pro-msg"></div>
+<input placeholder="Frage stellen…" onkeydown="if(event.key==='Enter') ask('pro',this)">
 </div>
-<p class="limit">Max. 3 Fragen im Demo</p>
-<p class="notice">Simulation eines Verkaufs-Agents.</p>
 </div>
 
 <!-- ENTERPRISE -->
@@ -178,70 +214,19 @@ footer {
 <h3>Enterprise</h3>
 <p class="price">399 € / Monat</p>
 <ul>
+<li>CRM & API Integration</li>
 <li>Individuelle Workflows</li>
-<li>API & CRM Integration</li>
 <li>Strategische Automatisierung</li>
 </ul>
 
-<div class="demo-title">Enterprise-Agent (Demo)</div>
 <div class="demo-chat">
-<div class="demo-messages" id="enterprise-chat"></div>
-<input placeholder="z.B. Wie integriert ihr CRM?" onkeydown="if(event.key==='Enter') demoAsk(this,'enterprise')">
+<div class="messages" id="enterprise-msg"></div>
+<input placeholder="Frage stellen…" onkeydown="if(event.key==='Enter') ask('enterprise',this)">
 </div>
-<p class="limit">Max. 3 Fragen im Demo</p>
-<p class="notice">Enterprise-Agenten werden individuell entwickelt.</p>
 </div>
 
 </div>
 </section>
-
-<footer>
-© Clever & Günstig – AI-Agenten für Unternehmen<br>
-shop@straymind.de
-</footer>
-
-<script>
-const LIMIT = 3;
-const counts = { starter:0, pro:0, enterprise:0 };
-
-const answers = {
-  starter: [
-    "Dieses Paket beantwortet einfache Kundenfragen automatisiert.",
-    "Der Starter-Agent ersetzt klassische FAQ-Seiten.",
-    "Keine Verkaufs- oder Analysefunktionen enthalten."
-  ],
-  pro: [
-    "Der Pro-Agent analysiert Kundenbedürfnisse und empfiehlt passende Lösungen.",
-    "Dieses Paket eignet sich für Verkauf und Lead-Qualifizierung.",
-    "Der Agent führt Kunden aktiv durch Angebote."
-  ],
-  enterprise: [
-    "Enterprise-Agenten werden individuell auf Ihr Unternehmen trainiert.",
-    "Integrationen mit CRM, APIs und internen Systemen sind möglich.",
-    "Ideal für komplexe Geschäftsprozesse und Automatisierung."
-  ]
-};
-
-function demoAsk(input, plan) {
-  const chat = document.getElementById(plan + "-chat");
-  if (counts[plan] >= LIMIT) {
-    chat.innerHTML += `<div style="color:#fca5a5;"><b>Limit erreicht.</b> Bitte wählen Sie dieses Paket.</div>`;
-    return;
-  }
-
-  const q = input.value.trim();
-  if (!q) return;
-  input.value = "";
-  counts[plan]++;
-
-  chat.innerHTML += `<div><b>Du:</b> ${q}</div>`;
-  const reply = answers[plan][counts[plan]-1] || "Weitere Details erhalten Sie nach Buchung.";
-  setTimeout(() => {
-    chat.innerHTML += `<div><b>AI:</b> ${reply}</div>`;
-    chat.scrollTop = chat.scrollHeight;
-  }, 400);
-}
-</script>
 
 </body>
 </html>
