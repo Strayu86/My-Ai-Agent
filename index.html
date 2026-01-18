@@ -102,16 +102,16 @@ ul {
   color: #e5e7eb;
 }
 
-.notice {
-  font-size: 0.75rem;
-  color: #94a3b8;
-  margin-top: 10px;
-}
-
 .limit {
   color: #fca5a5;
   font-size: 0.85rem;
   margin-top: 8px;
+}
+
+.notice {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin-top: 10px;
 }
 
 footer {
@@ -127,11 +127,11 @@ footer {
 
 <header>
 <h1>AI-Agenten live testen</h1>
-<p>Testen Sie jeden Tarif live. Nach 3 Fragen endet das Demo – genau wie bei echten SaaS-Produkten.</p>
+<p>Interaktive Demo – keine echten AI-Kosten, volle Transparenz für Kunden.</p>
 </header>
 
 <section>
-<h2>Pakete & Live-Demos</h2>
+<h2>Pakete & Demo-Agenten</h2>
 
 <div class="pricing">
 
@@ -140,18 +140,18 @@ footer {
 <h3>Starter</h3>
 <p class="price">99 € / Monat</p>
 <ul>
-<li>FAQ & einfache Kundenfragen</li>
-<li>Kein Verkauf, keine Beratung</li>
-<li>Ideal für Support</li>
+<li>Beantwortet häufige Kundenfragen (FAQ)</li>
+<li>Kein Verkauf, keine Analyse</li>
+<li>Ideal für Support & Entlastung</li>
 </ul>
 
-<div class="demo-title">Starter-Agent testen</div>
+<div class="demo-title">Starter-Agent (Demo)</div>
 <div class="demo-chat">
 <div class="demo-messages" id="starter-chat"></div>
-<input placeholder="z.B. Was bietet ihr an?" onkeydown="if(event.key==='Enter') starterAsk(this)">
+<input placeholder="z.B. Was macht dieses Paket?" onkeydown="if(event.key==='Enter') demoAsk(this,'starter')">
 </div>
 <p class="limit">Max. 3 Fragen im Demo</p>
-<p class="notice">Finaler Bot läuft auf dem OpenAI-Konto des Kunden.</p>
+<p class="notice">Demo ohne echte AI – Produktionsagent läuft auf Kundensystem.</p>
 </div>
 
 <!-- PRO -->
@@ -159,18 +159,18 @@ footer {
 <h3>Pro</h3>
 <p class="price">199 € / Monat</p>
 <ul>
-<li>Beratung & Empfehlungen</li>
-<li>Verkaufslogik</li>
-<li>Lead-Qualifizierung</li>
+<li>Beratung & Produktempfehlungen</li>
+<li>Verkaufslogik & Leads</li>
+<li>Mehrstufige Antworten</li>
 </ul>
 
-<div class="demo-title">Pro-Agent testen</div>
+<div class="demo-title">Pro-Agent (Demo)</div>
 <div class="demo-chat">
 <div class="demo-messages" id="pro-chat"></div>
-<input placeholder="z.B. Welches Paket passt?" onkeydown="if(event.key==='Enter') proAsk(this)">
+<input placeholder="z.B. Welches Paket passt?" onkeydown="if(event.key==='Enter') demoAsk(this,'pro')">
 </div>
 <p class="limit">Max. 3 Fragen im Demo</p>
-<p class="notice">Kosten entstehen später auf Ihrem eigenen Account.</p>
+<p class="notice">Simulation eines Verkaufs-Agents.</p>
 </div>
 
 <!-- ENTERPRISE -->
@@ -178,18 +178,18 @@ footer {
 <h3>Enterprise</h3>
 <p class="price">399 € / Monat</p>
 <ul>
-<li>Integrationen & APIs</li>
 <li>Individuelle Workflows</li>
-<li>Strategische Beratung</li>
+<li>API & CRM Integration</li>
+<li>Strategische Automatisierung</li>
 </ul>
 
-<div class="demo-title">Enterprise-Agent testen</div>
+<div class="demo-title">Enterprise-Agent (Demo)</div>
 <div class="demo-chat">
 <div class="demo-messages" id="enterprise-chat"></div>
-<input placeholder="z.B. CRM integrieren?" onkeydown="if(event.key==='Enter') enterpriseAsk(this)">
+<input placeholder="z.B. Wie integriert ihr CRM?" onkeydown="if(event.key==='Enter') demoAsk(this,'enterprise')">
 </div>
 <p class="limit">Max. 3 Fragen im Demo</p>
-<p class="notice">Enterprise-Agenten sind individuell.</p>
+<p class="notice">Enterprise-Agenten werden individuell entwickelt.</p>
 </div>
 
 </div>
@@ -200,43 +200,49 @@ footer {
 shop@straymind.de
 </footer>
 
-<!-- ====== NOWY SKRYPT ====== -->
 <script>
-const WORKER_URL = "https://aiagent.marekgussmann.workers.dev";
 const LIMIT = 3;
+const counts = { starter:0, pro:0, enterprise:0 };
 
-function getCount(plan) { return Number(localStorage.getItem(plan+"_count")||0); }
-function inc(plan) { localStorage.setItem(plan+"_count", getCount(plan)+1); }
+const answers = {
+  starter: [
+    "Dieses Paket beantwortet einfache Kundenfragen automatisiert.",
+    "Der Starter-Agent ersetzt klassische FAQ-Seiten.",
+    "Keine Verkaufs- oder Analysefunktionen enthalten."
+  ],
+  pro: [
+    "Der Pro-Agent analysiert Kundenbedürfnisse und empfiehlt passende Lösungen.",
+    "Dieses Paket eignet sich für Verkauf und Lead-Qualifizierung.",
+    "Der Agent führt Kunden aktiv durch Angebote."
+  ],
+  enterprise: [
+    "Enterprise-Agenten werden individuell auf Ihr Unternehmen trainiert.",
+    "Integrationen mit CRM, APIs und internen Systemen sind möglich.",
+    "Ideal für komplexe Geschäftsprozesse und Automatisierung."
+  ]
+};
 
-async function ask(chatId, input, plan){
-  const box = document.getElementById(chatId);
-  if(getCount(plan)>=LIMIT){
-    box.innerHTML += `<div style="color:#fca5a5;"><b>Limit erreicht.</b><br>Bitte wählen Sie diesen Tarif.</div>`;
+function demoAsk(input, plan) {
+  const chat = document.getElementById(plan + "-chat");
+  if (counts[plan] >= LIMIT) {
+    chat.innerHTML += `<div style="color:#fca5a5;"><b>Limit erreicht.</b> Bitte wählen Sie dieses Paket.</div>`;
     return;
   }
 
-  const q = input.value; if(!q.trim()) return; input.value=""; inc(plan);
-  box.innerHTML += `<div><b>Du:</b> ${q}</div>`;
+  const q = input.value.trim();
+  if (!q) return;
+  input.value = "";
+  counts[plan]++;
 
-  try {
-    const res = await fetch(WORKER_URL,{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({ question: q, plan })
-    });
-    const data = await res.json();
-    box.innerHTML += `<div><b>AI:</b> ${data.answer}</div>`;
-  } catch(e){
-    box.innerHTML += `<div style="color:#fca5a5;"><b>Fehler:</b> Keine Antwort vom Server.</div>`;
-  }
-
-  box.scrollTop = box.scrollHeight;
+  chat.innerHTML += `<div><b>Du:</b> ${q}</div>`;
+  const reply = answers[plan][counts[plan]-1] || "Weitere Details erhalten Sie nach Buchung.";
+  setTimeout(() => {
+    chat.innerHTML += `<div><b>AI:</b> ${reply}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+  }, 400);
 }
-
-function starterAsk(input){ ask("starter-chat", input, "starter"); }
-function proAsk(input){ ask("pro-chat", input, "pro"); }
-function enterpriseAsk(input){ ask("enterprise-chat", input, "enterprise"); }
 </script>
 
 </body>
 </html>
+
