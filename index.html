@@ -2,9 +2,8 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Clever & Günstig – AI-Agenten Demo</title>
+<title>Clever & Günstig – AI-Agenten Live Demo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Testen Sie AI-Agenten live. Starter, Pro und Enterprise – sehen Sie sofort die Unterschiede.">
 
 <style>
 body {
@@ -26,7 +25,7 @@ h1 {
 }
 
 header p {
-  max-width: 800px;
+  max-width: 850px;
   margin: auto;
   font-size: 1.2rem;
   color: #cbd5f5;
@@ -61,7 +60,6 @@ h2 {
 
 .box h3 {
   color: #818cf8;
-  margin-top: 0;
 }
 
 .price {
@@ -109,6 +107,12 @@ ul {
   margin-top: 10px;
 }
 
+.limit {
+  color: #fca5a5;
+  font-size: 0.85rem;
+  margin-top: 8px;
+}
+
 footer {
   text-align: center;
   padding: 40px;
@@ -121,9 +125,11 @@ footer {
 <body>
 
 <header>
-<h1>Testen Sie unsere AI-Agenten live</h1>
-<p>Jeder Tarif hat einen eigenen AI-Agenten.  
-Testen Sie die Unterschiede – genau so verhält sich Ihr späterer Agent.</p>
+<h1>AI-Agenten live testen</h1>
+<p>
+Testen Sie jeden Tarif live.  
+Jeder Agent verhält sich genau so wie die finale Version für Ihr Unternehmen.
+</p>
 </header>
 
 <section>
@@ -136,21 +142,19 @@ Testen Sie die Unterschiede – genau so verhält sich Ihr späterer Agent.</p>
 <h3>Starter</h3>
 <p class="price">99 € / Monat</p>
 <ul>
-<li>Beantwortet häufige Kundenfragen (FAQ)</li>
-<li>Keine Beratung oder Verkaufslogik</li>
-<li>Ideal für einfache Kundenkommunikation</li>
+<li>Automatische Beantwortung häufiger Fragen</li>
+<li>Kein Verkauf, keine Beratung</li>
+<li>Ideal für Support & Entlastung</li>
 <li>Bis zu 500 Interaktionen / Monat</li>
 </ul>
 
-<div class="demo-title">🔹 Starter-Agent testen</div>
+<div class="demo-title">Starter-Agent testen</div>
 <div class="demo-chat">
 <div class="demo-messages" id="starter-chat"></div>
-<input placeholder="z.B. Was kostet euer Service?" onkeydown="if(event.key==='Enter') starterAsk(this)">
+<input placeholder="z.B. Was bietet ihr an?" onkeydown="if(event.key==='Enter') starterAsk(this)">
 </div>
-
-<p class="notice">
-Demo-Version. Der finale Agent wird auf dem OpenAI-Konto des Kunden betrieben.
-</p>
+<p class="limit">Max. 3 Fragen im Demo</p>
+<p class="notice">Der finale Agent läuft auf dem OpenAI-Konto des Kunden.</p>
 </div>
 
 <!-- PRO -->
@@ -158,21 +162,19 @@ Demo-Version. Der finale Agent wird auf dem OpenAI-Konto des Kunden betrieben.
 <h3>Pro</h3>
 <p class="price">199 € / Monat</p>
 <ul>
-<li>Produktberatung & Empfehlungen</li>
+<li>Produkt- & Serviceberatung</li>
 <li>Verkaufsorientierte Antworten</li>
-<li>Lead-Vorbereitung</li>
+<li>Lead-Vorqualifizierung</li>
 <li>Bis zu 2000 Interaktionen / Monat</li>
 </ul>
 
-<div class="demo-title">🔹 Pro-Agent testen</div>
+<div class="demo-title">Pro-Agent testen</div>
 <div class="demo-chat">
 <div class="demo-messages" id="pro-chat"></div>
 <input placeholder="z.B. Welches Paket passt zu mir?" onkeydown="if(event.key==='Enter') proAsk(this)">
 </div>
-
-<p class="notice">
-Demo-Version. Nutzungskosten entstehen auf dem OpenAI-Konto des Kunden.
-</p>
+<p class="limit">Max. 3 Fragen im Demo</p>
+<p class="notice">Nutzungskosten entstehen später auf Ihrem eigenen Account.</p>
 </div>
 
 <!-- ENTERPRISE -->
@@ -180,21 +182,19 @@ Demo-Version. Nutzungskosten entstehen auf dem OpenAI-Konto des Kunden.
 <h3>Enterprise</h3>
 <p class="price">399 € / Monat</p>
 <ul>
-<li>Individuelle Workflows</li>
+<li>Individuelle AI-Workflows</li>
 <li>API- & System-Integrationen</li>
 <li>Strategische Beratung</li>
 <li>Unbegrenzte Interaktionen</li>
 </ul>
 
-<div class="demo-title">🔹 Enterprise-Agent testen</div>
+<div class="demo-title">Enterprise-Agent testen</div>
 <div class="demo-chat">
 <div class="demo-messages" id="enterprise-chat"></div>
 <input placeholder="z.B. Können Sie unser CRM integrieren?" onkeydown="if(event.key==='Enter') enterpriseAsk(this)">
 </div>
-
-<p class="notice">
-Enterprise-Agenten werden individuell aufgesetzt und skaliert.
-</p>
+<p class="limit">Max. 3 Fragen im Demo</p>
+<p class="notice">Enterprise-Agenten werden individuell umgesetzt.</p>
 </div>
 
 </div>
@@ -206,23 +206,41 @@ shop@straymind.de
 </footer>
 
 <script>
-const API_KEY = "HIER_DEIN_OPENAI_API_KEY";
+const API_KEY = "TUTAJ_WSTAW_SWÓJ_KLUCZ_OPENAI";
+const LIMIT = 3;
 
-async function ask(chatId, prompt, input) {
+function getCount(plan) {
+  return Number(localStorage.getItem(plan + "_count") || 0);
+}
+
+function inc(plan) {
+  localStorage.setItem(plan + "_count", getCount(plan) + 1);
+}
+
+async function ask(chatId, prompt, input, plan) {
   const box = document.getElementById(chatId);
-  const question = input.value;
+
+  if (getCount(plan) >= LIMIT) {
+    box.innerHTML += `<div style="color:#fca5a5;"><b>Limit erreicht.</b><br>Bitte wählen Sie diesen Tarif für unbegrenzten Zugriff.</div>`;
+    return;
+  }
+
+  const q = input.value;
+  if (!q.trim()) return;
   input.value = "";
-  box.innerHTML += `<div><b>Du:</b> ${question}</div>`;
+  inc(plan);
+
+  box.innerHTML += `<div><b>Du:</b> ${q}</div>`;
 
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${API_KEY}`,
+      "Authorization": "Bearer " + API_KEY,
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
       model: "gpt-4",
-      messages: [{ role: "user", content: prompt + question }],
+      messages: [{ role: "user", content: prompt + q }],
       max_tokens: 200
     })
   });
@@ -233,21 +251,15 @@ async function ask(chatId, prompt, input) {
 }
 
 function starterAsk(i) {
-  ask("starter-chat",
-  "Du bist ein STARTER AI-Agent. Du beantwortest nur einfache FAQs. Keine Beratung. Frage: ",
-  i);
+  ask("starter-chat","Du bist ein STARTER AI-Agent. Du beantwortest nur einfache FAQs. Frage: ",i,"starter");
 }
 
 function proAsk(i) {
-  ask("pro-chat",
-  "Du bist ein PRO AI-Agent. Du berätst, empfiehlst und erklärst Vorteile. Frage: ",
-  i);
+  ask("pro-chat","Du bist ein PRO AI-Agent. Du berätst und empfiehlst Lösungen. Frage: ",i,"pro");
 }
 
 function enterpriseAsk(i) {
-  ask("enterprise-chat",
-  "Du bist ein ENTERPRISE AI-Agent. Du erklärst komplexe Prozesse, Integrationen und Strategien. Frage: ",
-  i);
+  ask("enterprise-chat","Du bist ein ENTERPRISE AI-Agent. Du erklärst Integrationen und komplexe Prozesse. Frage: ",i,"enterprise");
 }
 </script>
 
