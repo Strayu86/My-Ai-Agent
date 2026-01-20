@@ -17,14 +17,12 @@
 }
 
 *{box-sizing:border-box}
-
 body{
   margin:0;
   font-family:Inter,Arial,sans-serif;
   color:var(--text);
   background:url("ai-bg.jpg") center/cover no-repeat fixed;
 }
-
 body::before{
   content:"";
   position:fixed;
@@ -36,14 +34,11 @@ body::before{
 header{
   padding:160px 20px 120px;
   text-align:center;
-  animation:fadeIn 1s ease;
 }
-
 h1{
   font-size:3.2rem;
   color:#c7d2fe;
 }
-
 header p{
   max-width:900px;
   margin:20px auto 0;
@@ -58,9 +53,6 @@ section{
   padding:0 20px;
 }
 
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes slideUp{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
-
 .pricing{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
@@ -70,27 +62,24 @@ section{
 .box{
   background:rgba(2,6,23,.95);
   border:1px solid var(--border);
-  border-radius:20px;
+  border-radius:22px;
   padding:32px;
   box-shadow:0 0 40px rgba(99,102,241,.15);
   transition:.3s;
 }
-
 .box:hover{transform:translateY(-6px)}
 
 .box h3{color:#818cf8;font-size:1.6rem}
 .price{font-size:2.1rem;color:#a5b4fc}
 .desc{color:#cbd5f5;font-size:.95rem}
 
-.demo-section{text-align:center}
-
 .demo-buttons{
   display:flex;
   justify-content:center;
   gap:20px;
   flex-wrap:wrap;
+  margin-top:40px;
 }
-
 .demo-buttons button{
   padding:14px 28px;
   border-radius:16px;
@@ -101,7 +90,6 @@ section{
   color:white;
   transition:.3s;
 }
-
 .demo-buttons button:hover{transform:scale(1.05)}
 
 .demo{
@@ -111,11 +99,15 @@ section{
   border:1px solid var(--border);
   border-radius:22px;
   padding:32px;
-  animation:slideUp .6s ease forwards;
-  text-align:left;
+  animation:fadeUp .6s ease forwards;
 }
 
-.client{margin-bottom:4px}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:none}
+}
+
+.client{margin-bottom:6px}
 .ai{color:#a5b4fc;margin-bottom:18px}
 
 .why{
@@ -123,7 +115,6 @@ section{
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   gap:25px;
 }
-
 .why div{
   background:var(--card);
   border:1px solid var(--border);
@@ -137,7 +128,6 @@ form{
   display:grid;
   gap:16px;
 }
-
 input,textarea{
   padding:14px;
   border-radius:14px;
@@ -145,9 +135,7 @@ input,textarea{
   background:#020617;
   color:white;
 }
-
 textarea{min-height:120px}
-
 form button{
   padding:14px;
   border:none;
@@ -157,6 +145,7 @@ form button{
   font-weight:bold;
   cursor:pointer;
 }
+.success{color:#22c55e;display:none;text-align:center}
 
 footer{
   text-align:center;
@@ -173,19 +162,24 @@ function showDemo(id){
   el.scrollIntoView({behavior:"smooth"});
 }
 
-function sendForm(e){
-  e.preventDefault();
+const WORKER_URL="https://contact-form.TWOJLOGIN.workers.dev";
 
+async function sendForm(e){
+  e.preventDefault();
   const name=document.getElementById("name").value;
   const email=document.getElementById("email").value;
   const message=document.getElementById("message").value;
 
-  const subject=encodeURIComponent("Kontaktformular – Clever & Günstig");
-  const body=encodeURIComponent(
-    "Name: "+name+"\nE-Mail: "+email+"\n\n"+message
-  );
+  const res=await fetch(WORKER_URL,{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({name,email,message})
+  });
 
-  window.location.href="mailto:shop@straymind.de?subject="+subject+"&body="+body;
+  if(res.ok){
+    document.getElementById("success").style.display="block";
+    e.target.reset();
+  }
 }
 </script>
 </head>
@@ -195,9 +189,9 @@ function sendForm(e){
 <header>
 <h1>AI-Agenten für Kundenservice & Vertrieb</h1>
 <p>
-Wir entwickeln spezialisierte AI-Agenten, die Kundenanfragen automatisiert beantworten,
-Mitarbeiter entlasten und den Vertrieb effizient unterstützen – transparent, skalierbar
-und auf Ihr Unternehmen zugeschnitten.
+Wir entwickeln maßgeschneiderte AI-Agenten, die Kundenanfragen automatisieren,
+Mitarbeiter entlasten und Vertrieb messbar unterstützen – transparent, kontrollierbar
+und vollständig in Ihrem Besitz.
 </p>
 </header>
 
@@ -206,53 +200,54 @@ und auf Ihr Unternehmen zugeschnitten.
   <div class="box">
     <h3>Starter</h3>
     <p class="price">99 € / Monat</p>
-    <p class="desc">Automatisierte Antworten auf wiederkehrende Kundenfragen.</p>
+    <p class="desc">Automatisierte Beantwortung häufiger Kundenfragen.</p>
   </div>
   <div class="box">
     <h3>Pro</h3>
     <p class="price">199 € / Monat</p>
-    <p class="desc">Beratung, Produktempfehlungen & Lead-Qualifizierung.</p>
+    <p class="desc">Beratung, Empfehlungen & Lead-Qualifizierung.</p>
   </div>
   <div class="box">
     <h3>Enterprise</h3>
     <p class="price">399 € / Monat</p>
-    <p class="desc">Individuelle AI-Agenten mit System-Integrationen.</p>
+    <p class="desc">Individuelle AI-Agenten & System-Integrationen.</p>
   </div>
 </div>
 </section>
 
-<section class="demo-section">
-<h2>So sieht eine Beispiel-Unterhaltung aus</h2>
-<p>Reale Kundenfragen – echte Unterschiede zwischen den Agenten.</p>
+<section>
+<h2 style="text-align:center;color:#c7d2fe">
+So sieht eine echte Kunden-AI-Unterhaltung aus
+</h2>
 
 <div class="demo-buttons">
-<button onclick="showDemo('starter')">Starter-Agent testen</button>
-<button onclick="showDemo('pro')">Pro-Agent testen</button>
-<button onclick="showDemo('enterprise')">Enterprise-Agent testen</button>
+  <button onclick="showDemo('starter')">Starter-Agent ansehen</button>
+  <button onclick="showDemo('pro')">Pro-Agent ansehen</button>
+  <button onclick="showDemo('enterprise')">Enterprise-Agent ansehen</button>
 </div>
 
-<!-- STARTER – 10 PYTAŃ -->
+<!-- STARTER – 10 -->
 <div class="demo" id="starter">
 <div class="client"><b>Kunde:</b> Welche Leistungen bietet Ihr Unternehmen grundsätzlich an?</div>
-<div class="ai"><b>AI:</b> Wir entwickeln AI-Agenten zur automatisierten Beantwortung von Kundenanfragen.</div>
+<div class="ai"><b>AI:</b> Wir entwickeln AI-Agenten zur automatisierten Beantwortung häufiger Kundenanfragen.</div>
 
-<div class="client"><b>Kunde:</b> Für welche Unternehmen ist der Starter-Agent geeignet?</div>
-<div class="ai"><b>AI:</b> Für kleine und mittlere Unternehmen mit vielen Standardfragen.</div>
+<div class="client"><b>Kunde:</b> Für welche Unternehmen eignet sich der Starter-Agent besonders?</div>
+<div class="ai"><b>AI:</b> Für kleine und mittlere Unternehmen mit vielen wiederkehrenden Support-Fragen.</div>
 
-<div class="client"><b>Kunde:</b> Kann der Agent Öffnungszeiten beantworten?</div>
-<div class="ai"><b>AI:</b> Ja, solche Informationen gehören zu den Kernaufgaben.</div>
+<div class="client"><b>Kunde:</b> Kann der Agent Öffnungszeiten und Kontaktinfos nennen?</div>
+<div class="ai"><b>AI:</b> Ja, diese Informationen gehören zu den Kernfunktionen.</div>
 
-<div class="client"><b>Kunde:</b> Beantwortet der Agent Preisfragen?</div>
+<div class="client"><b>Kunde:</b> Beantwortet der Agent Preis- oder Tariffragen?</div>
 <div class="ai"><b>AI:</b> Ja, sofern feste Preise oder Preisspannen hinterlegt sind.</div>
 
 <div class="client"><b>Kunde:</b> Kann der Agent Termine buchen?</div>
-<div class="ai"><b>AI:</b> Nein, der Starter-Agent informiert ausschließlich.</div>
+<div class="ai"><b>AI:</b> Nein, er informiert ausschließlich.</div>
 
-<div class="client"><b>Kunde:</b> Muss mein Team den Agenten trainieren?</div>
-<div class="ai"><b>AI:</b> Nein, wir übernehmen die komplette Einrichtung.</div>
+<div class="client"><b>Kunde:</b> Benötigen wir internes Training?</div>
+<div class="ai"><b>AI:</b> Nein, wir übernehmen die vollständige Einrichtung.</div>
 
-<div class="client"><b>Kunde:</b> Lernt der Agent automatisch dazu?</div>
-<div class="ai"><b>AI:</b> Nein, er arbeitet auf Basis definierter Inhalte.</div>
+<div class="client"><b>Kunde:</b> Lernt der Agent selbstständig?</div>
+<div class="ai"><b>AI:</b> Nein, er arbeitet auf definierten Inhalten.</div>
 
 <div class="client"><b>Kunde:</b> Können Inhalte später angepasst werden?</div>
 <div class="ai"><b>AI:</b> Ja, jederzeit.</div>
@@ -260,47 +255,47 @@ und auf Ihr Unternehmen zugeschnitten.
 <div class="client"><b>Kunde:</b> Ersetzt der Agent Mitarbeiter?</div>
 <div class="ai"><b>AI:</b> Nein, er entlastet sie.</div>
 
-<div class="client"><b>Kunde:</b> Wem gehört der Agent?</div>
-<div class="ai"><b>AI:</b> Ihnen.</div>
+<div class="client"><b>Kunde:</b> Auf wessen Account läuft der finale Bot?</div>
+<div class="ai"><b>AI:</b> Auf Ihrem eigenen.</div>
 </div>
 
-<!-- PRO – 10 PYTAŃ -->
+<!-- PRO – 10 -->
 <div class="demo" id="pro">
-<div class="client"><b>Kunde:</b> Welches Paket empfehlen Sie mir?</div>
+<div class="client"><b>Kunde:</b> Welches Paket passt am besten zu meinem Unternehmen?</div>
 <div class="ai"><b>AI:</b> Basierend auf Ihren Zielen empfehle ich das Pro-Paket.</div>
 
 <div class="client"><b>Kunde:</b> Kann der Agent Kunden aktiv beraten?</div>
-<div class="ai"><b>AI:</b> Ja, inklusive strukturierter Rückfragen.</div>
+<div class="ai"><b>AI:</b> Ja, strukturiert und nachvollziehbar.</div>
 
-<div class="client"><b>Kunde:</b> Erkennt der Agent Kaufabsichten?</div>
-<div class="ai"><b>AI:</b> Ja, durch Gesprächslogik.</div>
+<div class="client"><b>Kunde:</b> Stellt der Agent Rückfragen?</div>
+<div class="ai"><b>AI:</b> Ja, um Bedürfnisse besser zu verstehen.</div>
 
 <div class="client"><b>Kunde:</b> Kann er Produkte vergleichen?</div>
 <div class="ai"><b>AI:</b> Ja, anhand definierter Kriterien.</div>
 
-<div class="client"><b>Kunde:</b> Übergibt er Leads an Mitarbeiter?</div>
-<div class="ai"><b>AI:</b> Ja, qualifiziert.</div>
+<div class="client"><b>Kunde:</b> Erkennt er Kaufabsichten?</div>
+<div class="ai"><b>AI:</b> Ja.</div>
 
-<div class="client"><b>Kunde:</b> Ist der Verkauf aufdringlich?</div>
+<div class="client"><b>Kunde:</b> Übergibt er qualifizierte Leads?</div>
+<div class="ai"><b>AI:</b> Ja, strukturiert.</div>
+
+<div class="client"><b>Kunde:</b> Ist die Beratung aufdringlich?</div>
 <div class="ai"><b>AI:</b> Nein, beratend.</div>
 
-<div class="client"><b>Kunde:</b> Kann ich die Verkaufslogik anpassen?</div>
+<div class="client"><b>Kunde:</b> Kann Verkaufslogik angepasst werden?</div>
 <div class="ai"><b>AI:</b> Ja.</div>
 
 <div class="client"><b>Kunde:</b> Für welche Branchen geeignet?</div>
 <div class="ai"><b>AI:</b> Dienstleistung, E-Commerce, Beratung.</div>
 
-<div class="client"><b>Kunde:</b> Ist das DSGVO-konform?</div>
-<div class="ai"><b>AI:</b> Ja.</div>
-
-<div class="client"><b>Kunde:</b> Gehört mir der Agent?</div>
+<div class="client"><b>Kunde:</b> Läuft der Agent auf meinem Account?</div>
 <div class="ai"><b>AI:</b> Ja.</div>
 </div>
 
-<!-- ENTERPRISE – 10 PYTAŃ -->
+<!-- ENTERPRISE – 10 -->
 <div class="demo" id="enterprise">
-<div class="client"><b>Kunde:</b> Können Sie bestehende Systeme integrieren?</div>
-<div class="ai"><b>AI:</b> Ja.</div>
+<div class="client"><b>Kunde:</b> Können bestehende Systeme integriert werden?</div>
+<div class="ai"><b>AI:</b> Ja, vollständig.</div>
 
 <div class="client"><b>Kunde:</b> Ist eine CRM-Anbindung möglich?</div>
 <div class="ai"><b>AI:</b> Ja.</div>
@@ -335,13 +330,13 @@ und auf Ihr Unternehmen zugeschnitten.
 <h2 style="text-align:center;color:#c7d2fe">Warum wir?</h2>
 <div class="why">
 <div>Keine Plattform-Abhängigkeit</div>
+<div>Volles Eigentum beim Kunden</div>
 <div>Transparente Kosten</div>
-<div>Eigentum beim Kunden</div>
-<div>Praxisnahe AI-Logik</div>
-<div>Klare Grenzen statt Marketing-Blabla</div>
-<div>Beratung statt Baukasten</div>
-<div>Skalierbar von KMU bis Enterprise</div>
-<div>Erfahrung aus realen Projekten</div>
+<div>Realistische AI-Grenzen</div>
+<div>Praxisnahe Beratung</div>
+<div>Kein Baukasten-System</div>
+<div>Skalierbar von klein bis Enterprise</div>
+<div>Erfahrung aus echten Projekten</div>
 </div>
 </section>
 
@@ -351,7 +346,8 @@ und auf Ihr Unternehmen zugeschnitten.
 <input id="name" placeholder="Ihr Name" required>
 <input id="email" type="email" placeholder="Ihre E-Mail" required>
 <textarea id="message" placeholder="Ihre Nachricht" required></textarea>
-<button type="submit">Nachricht senden</button>
+<button>Nachricht senden</button>
+<div id="success" class="success">✔ Nachricht wurde gesendet</div>
 </form>
 </section>
 
