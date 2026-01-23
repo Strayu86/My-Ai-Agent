@@ -8,133 +8,186 @@
 <style>
 :root{
   --bg:#020617;
-  --card:#0b1225;
+  --overlay:rgba(2,6,23,.88);
+  --card:#0b1022;
   --border:#1e293b;
   --primary:#6366f1;
   --secondary:#4338ca;
   --text:#e5e7eb;
   --muted:#94a3b8;
 }
+
 *{box-sizing:border-box}
 body{
   margin:0;
   font-family:Inter,Arial,sans-serif;
   color:var(--text);
-  background:url("ai-bg.jpg") center/cover fixed no-repeat;
+  background:url("ai-bg.jpg") center/cover no-repeat fixed;
 }
 body::before{
   content:"";
   position:fixed;
   inset:0;
-  background:rgba(2,6,23,.92);
+  background:var(--overlay);
   z-index:-1;
 }
+
+section{
+  max-width:1200px;
+  margin:100px auto;
+  padding:0 20px;
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s;
+}
+section.visible{
+  opacity:1;
+  transform:none;
+}
+
 header{
-  padding:180px 20px 140px;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   text-align:center;
 }
-header h1{font-size:3.4rem;color:#c7d2fe}
-header p{max-width:900px;margin:25px auto;font-size:1.2rem;color:#cbd5f5}
 
-section{max-width:1200px;margin:100px auto;padding:0 20px}
-h2{color:#c7d2fe;text-align:center;margin-bottom:40px}
+.hero h1{font-size:3.5rem;color:#c7d2fe}
+.hero p{font-size:1.2rem;color:#cbd5f5;margin-top:20px}
+
+.btn{
+  display:inline-block;
+  margin-top:40px;
+  padding:16px 36px;
+  border-radius:18px;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+  transition:.3s;
+}
+.btn:hover{transform:scale(1.07)}
 
 .pricing{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(340px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
   gap:30px;
 }
 .box{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:26px;
+  border-radius:24px;
   padding:36px;
-  box-shadow:0 0 50px rgba(99,102,241,.18);
+  transition:.4s;
 }
-.price{font-size:2.2rem;color:#a5b4fc}
-
-.demo-buttons{
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  flex-wrap:wrap;
+.box:hover{
+  transform:translateY(-10px);
+  box-shadow:0 0 60px rgba(99,102,241,.35);
 }
-.demo-buttons button{
-  padding:16px 32px;
-  border:none;
-  border-radius:20px;
-  background:linear-gradient(135deg,var(--primary),var(--secondary));
-  color:white;
-  font-weight:800;
-  cursor:pointer;
-}
+.price{font-size:2.3rem;color:#a5b4fc}
 
 .demo{
   display:none;
   margin-top:60px;
   background:var(--card);
-  border:1px solid var(--border);
-  border-radius:28px;
+  border-radius:26px;
   padding:40px;
+  animation:fadeDemo .6s ease;
 }
-.client{margin-top:24px}
-.ai{color:#a5b4fc;margin-bottom:14px}
+@keyframes fadeDemo{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:none}
+}
+
+.client{margin-bottom:6px}
+.ai{color:#a5b4fc;margin-bottom:26px}
 
 form{
-  max-width:640px;
-  margin:0 auto;
+  max-width:600px;
+  margin:50px auto 0;
   display:grid;
-  gap:18px;
+  gap:16px;
 }
 input,textarea{
-  padding:16px;
-  border-radius:16px;
+  padding:14px;
+  border-radius:14px;
   border:1px solid var(--border);
   background:#020617;
   color:white;
 }
-textarea{min-height:160px}
-form button{
+textarea{min-height:150px}
+
+button{
   padding:16px;
   border:none;
-  border-radius:16px;
+  border-radius:14px;
   background:linear-gradient(135deg,var(--primary),var(--secondary));
   color:white;
-  font-weight:800;
+  font-weight:600;
+  cursor:pointer;
 }
-.success{display:none;color:#22c55e;text-align:center;font-weight:700}
+
+.loader{
+  display:none;
+  margin-top:10px;
+  color:#a5b4fc;
+}
+.success{
+  display:none;
+  margin-top:12px;
+  color:#22c55e;
+}
 
 footer{
   padding:60px 20px;
   text-align:center;
+  border-top:1px solid var(--border);
   color:var(--muted);
 }
 </style>
 
 <script>
-const WORKER_URL = "https://TWOJ-WORKER.workers.dev";
+/* scroll animations */
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add("visible");
+  });
+},{threshold:.15});
+document.querySelectorAll("section").forEach(s=>obs.observe(s));
 
 function showDemo(id){
   document.querySelectorAll('.demo').forEach(d=>d.style.display="none");
-  document.getElementById(id).style.display="block";
-  document.getElementById(id).scrollIntoView({behavior:"smooth"});
+  const el=document.getElementById(id);
+  el.style.display="block";
+  el.scrollIntoView({behavior:"smooth"});
 }
 
 async function sendForm(e){
   e.preventDefault();
-  const f=e.target;
-  const res = await fetch(WORKER_URL,{
+  const form=e.target;
+  const loader=document.getElementById("loader");
+  const success=document.getElementById("success");
+
+  loader.style.display="block";
+  success.style.display="none";
+
+  const data={
+    name:form.name.value,
+    email:form.email.value,
+    message:form.message.value
+  };
+
+  const res=await fetch("https://TWOJ-WORKER.workers.dev",{
     method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify({
-      name:f.name.value,
-      email:f.email.value,
-      message:f.message.value
-    })
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify(data)
   });
+
+  loader.style.display="none";
   if(res.ok){
-    document.getElementById("success").style.display="block";
-    f.reset();
+    success.style.display="block";
+    form.reset();
   }
 }
 </script>
@@ -143,30 +196,12 @@ async function sendForm(e){
 <body>
 
 <header>
-<h1>AI-Agenten für Kundenservice & Vertrieb</h1>
-<p>
-Wir entwickeln professionelle AI-Agenten für Unternehmen, die Kundenanfragen automatisieren,
-Beratung skalieren und Vertrieb effizienter machen wollen – ohne Abhängigkeit, ohne Spielerei.
-</p>
+  <div class="hero">
+    <h1>Professionelle AI-Agenten für Unternehmen</h1>
+    <p>Premium AI-Lösungen für Kundenservice, Beratung und Vertrieb.</p>
+    <a href="#demo" class="btn">Live-Demo ansehen</a>
+  </div>
 </header>
-
-<section>
-<h2>Pakete</h2>
-<div class="pricing">
-  <div class="box"><h3>Starter</h3><p class="price">99 € / Monat</p><p>Automatisierter Support für wiederkehrende Fragen.</p></div>
-  <div class="box"><h3>Pro</h3><p class="price">199 € / Monat</p><p>Beratender AI-Agent mit Verkaufslogik.</p></div>
-  <div class="box"><h3>Enterprise</h3><p class="price">399 € / Monat</p><p>Individuelle AI-Systeme & Integrationen.</p></div>
-</div>
-</section>
-
-<section>
-<h2>Beispielhafte Kundengespräche</h2>
-<div class="demo-buttons">
-<button onclick="showDemo('starter')">Starter-Agent</button>
-<button onclick="showDemo('pro')">Pro-Agent</button>
-<button onclick="showDemo('enterprise')">Enterprise-Agent</button>
-</div>
-
 <!-- ================= STARTER – 10 PYTAŃ ================= -->
 <div class="demo" id="starter">
 <h3>Starter – typische Supportfragen</h3>
@@ -272,23 +307,22 @@ Beratung skalieren und Vertrieb effizienter machen wollen – ohne Abhängigkeit
 <div class="ai"><b>AI:</b> Ihnen.</div>
 </div>
 
-</section>
-
 <section>
 <h2>Kontakt</h2>
 <form onsubmit="sendForm(event)">
-<input name="name" placeholder="Ihr Name" required>
-<input name="email" type="email" placeholder="Ihre E-Mail-Adresse" required>
-<textarea name="message" placeholder="Ihre Nachricht" required></textarea>
-<button>Nachricht senden</button>
-<div id="success" class="success">✔ Nachricht wurde gesendet</div>
+  <input name="name" placeholder="Ihr Name" required>
+  <input name="email" type="email" placeholder="Ihre E-Mail" required>
+  <textarea name="message" placeholder="Ihre Nachricht" required></textarea>
+  <button>Nachricht senden</button>
+  <div id="loader" class="loader">⏳ Nachricht wird gesendet…</div>
+  <div id="success" class="success">✔ Nachricht erfolgreich gesendet</div>
 </form>
 </section>
 
 <footer>
-© Clever & Günstig · shop@straymind.de
+© Clever & Günstig · shop@straymind.de<br>
+<a href="#">Impressum</a> · <a href="#">Datenschutz</a>
 </footer>
 
 </body>
 </html>
-
