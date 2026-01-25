@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>Clever & Günstig – Professionelle AI-Agenten für Unternehmen</title>
+<title>Clever & Günstig – Professionelle AI-Agenten</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -18,7 +18,6 @@
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
 body{
   margin:0;
   font-family:Inter,Arial,sans-serif;
@@ -33,18 +32,15 @@ body::before{
   z-index:-1;
 }
 
-h1,h2,h3{margin:0 0 16px}
-p{line-height:1.7}
-
 section{
   max-width:1200px;
-  margin:110px auto;
+  margin:100px auto;
   padding:0 20px;
-  animation:fadeUp .9s ease both;
+  animation:fadeUp .8s ease both;
 }
 
 @keyframes fadeUp{
-  from{opacity:0;transform:translateY(40px)}
+  from{opacity:0;transform:translateY(30px)}
   to{opacity:1;transform:none}
 }
 
@@ -56,167 +52,127 @@ header{
   justify-content:center;
   text-align:center;
 }
-.hero{
-  max-width:900px;
-}
-.hero h1{
-  font-size:3.6rem;
-  color:#c7d2fe;
-}
-.hero p{
-  font-size:1.25rem;
-  color:#cbd5f5;
-  margin-top:22px;
-}
+header h1{font-size:3.4rem;color:#c7d2fe}
+header p{font-size:1.2rem;color:#cbd5f5}
 
 /* BUTTON */
 .btn{
+  margin-top:30px;
   display:inline-block;
-  margin-top:40px;
-  padding:18px 40px;
-  border-radius:22px;
+  padding:16px 36px;
+  border-radius:18px;
   background:linear-gradient(135deg,var(--primary),var(--secondary));
-  color:white;
-  font-weight:700;
+  color:#fff;
   text-decoration:none;
-  transition:.35s;
-  box-shadow:0 0 35px rgba(99,102,241,.45);
+  font-weight:600;
+  transition:.3s;
 }
-.btn:hover{
-  transform:scale(1.07);
-  box-shadow:0 0 60px rgba(99,102,241,.7);
-}
+.btn:hover{transform:scale(1.07)}
 
 /* PRICING */
 .pricing{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
-  gap:34px;
+  gap:30px;
 }
 .box{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:26px;
-  padding:38px;
-  box-shadow:0 0 45px rgba(99,102,241,.2);
-  transition:.4s;
-  position:relative;
-  overflow:hidden;
-}
-.box::after{
-  content:"";
-  position:absolute;
-  inset:-1px;
-  background:linear-gradient(120deg,transparent,rgba(99,102,241,.25),transparent);
-  opacity:0;
+  border-radius:22px;
+  padding:34px;
   transition:.4s;
 }
-.box:hover::after{opacity:1}
-.box:hover{transform:translateY(-12px)}
-.price{
-  font-size:2.3rem;
-  color:#a5b4fc;
+.box:hover{
+  transform:translateY(-10px) scale(1.02);
+  box-shadow:0 0 40px rgba(99,102,241,.35);
 }
+.price{font-size:2.2rem;color:#a5b4fc}
 
 /* DEMO */
 .demo-buttons{
   display:flex;
-  gap:22px;
+  gap:20px;
   justify-content:center;
   flex-wrap:wrap;
 }
 .demo-buttons button{
-  padding:16px 34px;
-  border-radius:20px;
+  padding:14px 30px;
+  border-radius:16px;
   border:none;
   cursor:pointer;
-  font-weight:700;
+  font-weight:600;
   background:linear-gradient(135deg,var(--primary),var(--secondary));
   color:white;
   transition:.3s;
 }
-.demo-buttons button:hover{
-  transform:scale(1.08);
-  box-shadow:0 0 30px rgba(99,102,241,.6);
-}
+.demo-buttons button:hover{transform:scale(1.1)}
 .demo{
   display:none;
-  margin-top:70px;
+  margin-top:60px;
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:30px;
-  padding:40px;
-  animation:fadeUp .6s ease both;
+  border-radius:24px;
+  padding:36px;
 }
-.client{margin-bottom:8px}
-.ai{color:#a5b4fc;margin-bottom:26px}
+.client{margin-bottom:6px}
+.ai{color:#a5b4fc;margin-bottom:22px}
 
 /* WHY */
 .why{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:26px;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
 }
 .why div{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:20px;
-  padding:28px;
+  border-radius:18px;
+  padding:26px;
 }
 
 /* PROCESS */
 .process{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:22px;
+  gap:20px;
 }
 .process div{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:20px;
-  padding:26px;
+  border-radius:18px;
+  padding:22px;
   text-align:center;
-  transition:.3s;
 }
-.process div:hover{transform:translateY(-6px)}
 
 /* FORM */
 form{
-  max-width:620px;
-  margin:60px auto 0;
+  max-width:600px;
+  margin:50px auto 0;
   display:grid;
-  gap:18px;
+  gap:16px;
 }
 input,textarea{
-  padding:16px;
-  border-radius:16px;
+  padding:14px;
+  border-radius:14px;
   border:1px solid var(--border);
   background:#020617;
   color:white;
-  font-size:1rem;
 }
-textarea{min-height:150px}
 form button{
-  padding:18px;
+  padding:16px;
   border:none;
-  border-radius:18px;
+  border-radius:14px;
   background:linear-gradient(135deg,var(--primary),var(--secondary));
   color:white;
-  font-weight:700;
-  cursor:pointer;
-  transition:.3s;
-}
-form button:hover{transform:scale(1.05)}
-.success{
-  display:none;
-  color:#22c55e;
-  margin-top:12px;
   font-weight:600;
+  cursor:pointer;
 }
+.success{display:none;color:#22c55e}
+.loading{display:none;color:#a5b4fc}
 
 /* FOOTER */
 footer{
-  padding:70px 20px;
+  padding:60px 20px;
   text-align:center;
   color:var(--muted);
   border-top:1px solid var(--border);
@@ -227,22 +183,34 @@ footer a{color:#a5b4fc;text-decoration:none}
 <script>
 function showDemo(id){
   document.querySelectorAll('.demo').forEach(d=>d.style.display="none");
-  const el=document.getElementById(id);
-  el.style.display="block";
-  el.scrollIntoView({behavior:"smooth"});
+  document.getElementById(id).style.display="block";
 }
 
 async function sendForm(e){
   e.preventDefault();
-  const form=e.target;
-  const data={
-    name:form.name.value,
-    email:form.email.value,
-    message:form.message.value
+  const form = e.target;
+  const loading = document.getElementById("loading");
+  const success = document.getElementById("success");
+
+  loading.style.display="block";
+  success.style.display="none";
+
+  const data = {
+    name: form.name.value,
+    email: form.email.value,
+    message: form.message.value
   };
-  const res=await fetch("https://DEIN-WORKER-URL.workers.dev",{method:"POST",body:JSON.stringify(data)});
+
+  const res = await fetch("https://agent.marekgussmann.workers.dev",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify(data)
+  });
+
+  loading.style.display="none";
+
   if(res.ok){
-    document.getElementById("success").style.display="block";
+    success.style.display="block";
     form.reset();
   }
 }
@@ -252,13 +220,10 @@ async function sendForm(e){
 <body>
 
 <header>
-  <div class="hero">
+  <div>
     <h1>Professionelle AI-Agenten für Unternehmen</h1>
-    <p>
-      Wir entwickeln hochwertige AI-Agenten für Kundenservice, Beratung und Vertrieb.
-      Kontrollierbar, DSGVO-konform und vollständig auf Ihrem eigenen Account betrieben.
-    </p>
-    <a href="#demo" class="btn">Beispiel-Gespräche ansehen</a>
+    <p>Premium AI-Lösungen für Beratung, Service & Vertrieb</p>
+    <a href="#demo" class="btn">Beispielgespräch ansehen</a>
   </div>
 </header>
 
@@ -426,14 +391,15 @@ So unterscheiden sich unsere AI-Agenten im realen Einsatz.
 </section>
 
 <!-- ===================== KONTAKT ===================== -->
-<section id="kontakt">
+<section>
 <h2>Kontakt</h2>
 <form onsubmit="sendForm(event)">
   <input name="name" placeholder="Ihr Name" required>
   <input name="email" type="email" placeholder="Ihre E-Mail" required>
   <textarea name="message" placeholder="Ihre Nachricht" required></textarea>
   <button>Nachricht senden</button>
-  <div id="success" class="success">✔ Nachricht erfolgreich gesendet.</div>
+  <div id="loading" class="loading">⏳ Nachricht wird gesendet…</div>
+  <div id="success" class="success">✔ Nachricht wurde erfolgreich versendet.</div>
 </form>
 </section>
 
